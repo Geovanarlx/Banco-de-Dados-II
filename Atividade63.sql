@@ -1,14 +1,9 @@
--- Atividade Prática: Manipulação de Dados e Relacionamentos
--- Dialeto: MySQL 8.0+
--- Esquema baseado no diagrama do enunciado.
-
 CREATE DATABASE IF NOT EXISTS atividade63_relacionamentos
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
 USE atividade63_relacionamentos;
 
--- Recria somente as tabelas deste exercício para permitir executar o arquivo novamente.
 DROP TABLE IF EXISTS funcionario;
 DROP TABLE IF EXISTS cliente;
 DROP TABLE IF EXISTS pessoa;
@@ -37,7 +32,6 @@ CREATE TABLE funcionario (
         FOREIGN KEY (id_pessoa) REFERENCES pessoa(id_pessoa)
 );
 
--- 2. Primeiro cadastra as pessoas, pois cliente e funcionario dependem delas.
 INSERT INTO pessoa (nome, cpf, rg) VALUES
     ('Frodo Bolseiro', '111', 'RG1'),
     ('Aragorn', '222', 'RG2'),
@@ -47,20 +41,19 @@ INSERT INTO pessoa (nome, cpf, rg) VALUES
     ('Samwise Gamgee', '666', 'RG6');
 
 INSERT INTO cliente (saldo_devedor, id_pessoa) VALUES
-    (150.00, 1), -- Frodo Bolseiro
-    (0.00,   2), -- Aragorn
-    (50.00,  3), -- Legolas
-    (500.00, 4), -- Gimli
-    (10.00,  6); -- Samwise Gamgee
+    (150.00, 1),
+    (0.00,   2),
+    (50.00,  3),
+    (500.00, 4),
+    (10.00,  6);
 
 INSERT INTO funcionario (matricula, salario, id_pessoa) VALUES
-    ('MAG01',   9000.00, 5), -- Gandalf
-    ('REI01',   8500.00, 2), -- Aragorn
-    ('ELF01',   7000.00, 3), -- Legolas
-    ('ANAO01',  7000.00, 4), -- Gimli
-    ('JAR01',   3000.00, 6); -- Samwise Gamgee
+    ('MAG01',   9000.00, 5),
+    ('REI01',   8500.00, 2),
+    ('ELF01',   7000.00, 3),
+    ('ANAO01',  7000.00, 4),
+    ('JAR01',   3000.00, 6);
 
--- 3.1 Clientes que também são funcionários.
 SELECT
     p.nome,
     c.saldo_devedor,
@@ -71,7 +64,6 @@ INNER JOIN cliente AS c
 INNER JOIN funcionario AS f
     ON f.id_pessoa = p.id_pessoa;
 
--- 3.2 Média salarial por valor de salário; exibe médias superiores a 5000.00.
 SELECT
     salario,
     AVG(salario) AS media_salarial
@@ -79,7 +71,6 @@ FROM funcionario
 GROUP BY salario
 HAVING AVG(salario) > 5000.00;
 
--- 3.3 Funcionários cujo nome começa com G, sem diferenciar maiúsculas/minúsculas.
 SELECT
     p.nome,
     f.matricula,
@@ -88,4 +79,3 @@ FROM funcionario AS f
 INNER JOIN pessoa AS p
     ON p.id_pessoa = f.id_pessoa
 WHERE UPPER(p.nome) LIKE 'G%';
-
