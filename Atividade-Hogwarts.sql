@@ -6,6 +6,13 @@ USE hogwarts;
 
 SET SQL_SAFE_UPDATES = 0;
 
+DROP PROCEDURE IF EXISTS testar_exclusao_casa;
+DROP PROCEDURE IF EXISTS testar_check_dobby;
+DROP PROCEDURE IF EXISTS testar_email_repetido;
+DROP PROCEDURE IF EXISTS testar_exclusao_snape;
+DROP PROCEDURE IF EXISTS testar_compra_nimbus;
+DROP PROCEDURE IF EXISTS testar_compra_caldeirao;
+
 DROP VIEW IF EXISTS vw_alunos_destaque;
 DROP VIEW IF EXISTS vw_quadro_professores;
 DROP VIEW IF EXISTS vw_extrato_loja;
@@ -210,6 +217,12 @@ MODIFY COLUMN fundador VARCHAR(100);
 
 ALTER TABLE professor
 RENAME COLUMN data_contratacao TO data_admissao;
+
+DESC aluno;
+DESC matricula;
+DESC produto;
+DESC casa;
+DESC professor;
 
 UPDATE aluno
 SET email = CONCAT(LOWER(REPLACE(nome, ' ', '.')), '@hogwarts.edu');
@@ -453,6 +466,8 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+SHOW TRIGGERS;
 
 INSERT INTO registro_pontos (id_aluno, id_prof, pontos, motivo, data_registro) VALUES
     (2, 3, 20, 'Feitiço de levitação perfeito', '2026-09-10'),
@@ -1088,3 +1103,6 @@ GRANT 'monitor' TO 'percy'@'localhost';
 SET DEFAULT ROLE 'monitor' TO 'percy'@'localhost';
 
 SHOW GRANTS FOR 'percy'@'localhost';
+
+
+
