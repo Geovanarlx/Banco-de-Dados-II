@@ -1,3 +1,8 @@
+REVOKE INSERT ON hogwarts.registro_pontos
+FROM 'mcgonagall'@'localhost';
+
+SHOW GRANTS FOR 'mcgonagall'@'localhost';
+
 DROP USER IF EXISTS 'filch'@'localhost';
 DROP USER IF EXISTS 'mcgonagall'@'localhost';
 DROP USER IF EXISTS 'dumbledore'@'localhost';
