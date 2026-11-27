@@ -191,14 +191,14 @@ INSERT INTO cons_medicame (data, hora, codPac, codMedica) VALUES
     ('2025-03-21', '14:00:00', 105, 5);
 
 CREATE VIEW vw_dia_maior_faturamento AS
-SELECT faturamento.data
-FROM (
-    SELECT data, SUM(valor) AS total_arrecadado
+SELECT data
+FROM consulta
+GROUP BY data
+HAVING SUM(valor) >= ALL (
+    SELECT SUM(valor)
     FROM consulta
     GROUP BY data
-    ORDER BY total_arrecadado DESC, data ASC
-    LIMIT 1
-) AS faturamento;
+);
 
 CREATE VIEW vw_paciente_mais_jovem AS
 SELECT nome
@@ -284,3 +284,4 @@ SELECT * FROM vw_pacientes_consultas_ate_2025;
 SELECT * FROM vw_qtd_consultas_paciente;
 SELECT * FROM vw_gasto_total_paciente;
 SELECT * FROM vw_medicos_por_especializacao;
+
