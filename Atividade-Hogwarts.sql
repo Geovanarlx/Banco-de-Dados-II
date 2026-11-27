@@ -1079,18 +1079,6 @@ WITH GRANT OPTION;
 SHOW GRANTS FOR 'filch'@'localhost';
 SHOW GRANTS FOR 'mcgonagall'@'localhost';
 
-INSERT INTO registro_pontos (id_aluno, id_prof, pontos, motivo, data_registro)
-VALUES (2, 1, 10, 'Ajudou um colega em Transfiguração', '2026-11-10');
-
-SELECT id_casa, nome_casa, pontos
-FROM casa
-WHERE id_casa = 1;
-
-REVOKE INSERT ON hogwarts.registro_pontos
-FROM 'mcgonagall'@'localhost';
-
-SHOW GRANTS FOR 'mcgonagall'@'localhost';
-
 CREATE ROLE 'monitor';
 
 GRANT SELECT ON hogwarts.vw_boletim TO 'monitor';
